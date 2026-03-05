@@ -193,19 +193,22 @@ Running the script produces:
 | BD‑Rate Value | Average bitrate difference between codecs |
 | Complexity Table | Encoding time comparison |
 
+### RD Curve Plot
+![Rate-Distortion Curve](../analysis/output.png)
+
 Example console output:
 
 ```
-BD-Rate (VVC vs HEVC): -34.52%
+BD-Rate (VVC vs HEVC): -43.36%
 
 --- Encoding Time Complexity ---
- QP  HM Time (s)  VTM Time (s)  Ratio
- 22        89.50        570.18  6.37x
- 27        74.02        334.99  4.53x
- 32        69.11        221.36  3.20x
- 37        61.47        152.40  2.48x
+ QP  HM Time (s)  VTM Time (s) Ratio
+ 22       89.504       570.181 6.37x
+ 27       74.017       334.987 4.53x
+ 32       69.112       221.358 3.20x
+ 37       61.474       152.397 2.48x
 
-Average Encoding Time Ratio: 4.15x
+Average Encoding Time Ratio: 4.14x
 ```
 
 These results summarize the **compression efficiency improvement** and the **computational complexity increase** when moving from HEVC to VVC.
