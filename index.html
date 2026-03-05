@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HEVC vs VVC Compression Analysis | Project Documentation</title>
+
+    <!-- Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+
+    <!-- Code Highlight Theme -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/atom-one-dark.min.css">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- MathJax for Math Formulas -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Marked JS (Markdown to HTML) and Highlight JS -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+</head>
+
+<body>
+
+    <!-- Header Navigation -->
+    <header class="header">
+        <a href="#" class="brand">
+            <i class="fa-solid fa-code-merge brand-icon"></i>
+            <span>HEVC vs VVC Analysis</span>
+        </a>
+        <div class="header-actions">
+            <!-- Redirect to GitHub Repo -->
+            <a href="https://github.com/vanowarna/hevc-vs-vvc-assignment" target="_blank" rel="noopener noreferrer"
+                class="github-link">
+                <i class="fa-brands fa-github text-lg"></i>
+                <span class="hidden sm:inline">GitHub Repository</span>
+            </a>
+        </div>
+    </header>
+
+    <!-- App Layout -->
+    <div class="app-container">
+
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="nav-section-title">Documentation</div>
+            <nav class="nav-menu">
+                <div class="nav-item active" data-section="overview">
+                    <i class="fa-solid fa-file-lines"></i>
+                    <span>Overview</span>
+                </div>
+                <div class="nav-item" data-section="experiment">
+                    <i class="fa-solid fa-flask"></i>
+                    <span>Experiment Guide</span>
+                </div>
+                <div class="nav-item" data-section="analysis">
+                    <i class="fa-solid fa-chart-bar"></i>
+                    <span>Analysis Guide</span>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Main Workspace View -->
+        <main class="main-content">
+            <div class="content-wrapper">
+                <div class="markdown-body" id="content-box">
+                    <!-- Markdown content gets rendered here -->
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Hidden Raw Markdown Data Blocks -->
+    <!-- Overview (README.md) -->
+    <script type="text/markdown" id="md-overview">
+# HEVC (H.265) vs VVC (H.266) Compression Analysis
+
+This project evaluates the performance of the **Versatile Video Coding (VVC)** standard compared to its predecessor, **High Efficiency Video Coding (HEVC)**. The evaluation focuses on compression efficiency (bitrate savings at constant quality) and computational complexity (encoding time), as required for the Multimedia Communication lab report.
+
+---
+
+## 📖 Methodology & Reproduction
+
+Detailed step-by-step instructions for reproducing this experiment are available in the following guides:
+
+1.  **[Experiment Reproduction Guide](#)**: Detailed steps on building the reference encoders (HM and VTM), downloading the raw source, and executing the encoding commands.
+2.  **[Analysis & Plotting Guide](#)**: Instructions on how to extract metrics from logs, calculate BD-Rate, and generate R-D curves using Python.
+3.  **[Jupyter Notebook Analysis](analysis/analysis.ipynb)**: The actual implementation used to process the data, calculate results, and generate the plots shown in this report.
+
+---
+
+## 📊 Experiment Setup
+
+-   **Source Sequence**: `FourPeople_1280x720_60.y4m` (HD 720p, 60fps)
+-   **Frames Encoded**: 10 frames
+-   **Quantization Parameters (QP)**: 22, 27, 32, 37
+-   **Reference Software**:
+    -   HEVC: HM-16.20 (HEVC Test Model)
+    -   VVC: VTM-11.0 (VVC Test Model)
+
+---
+
+## 📈 Experimental Results
+
+### 1. Rate-Distortion (R-D) Curve Plot
+The R-D curve demonstrates the relationship between bitrate (X-axis) and quality/PSNR (Y-axis). Both HM and VTM curves are plotted on the same graph to visualize the coding efficiency gap.
+
+> *Note: Reference plot generated via analysis script*
+
+![Rate-Distortion Curve](analysis/output.png)
+
+### 2. BD-Rate Analysis
+The Bjøntegaard-Delta Rate (BD-Rate) measures the average bitrate difference between two codecs at the same quality level.
+
+| Comparison | BD-Rate Value |
+| :--- | :---: |
+| **VVC (VTM) vs HEVC (HM)** | **-43.36%** |
+
+*Interpretation: VVC provides approximately **43.36% bitrate savings** over HEVC for this sequence.*
+
+### 3. The Complexity Penalty
+The complexity penalty is calculated as the average ratio of encoding time between the two codecs.
+
+$$Ratio = \frac{Time_{VTM}}{Time_{HM}}$$
+
+| QP | HM Time (s) | VTM Time (s) | Ratio |
+| :---: | :---: | :---: | :---: |
+| 22 | 89.504 | 570.181 | 6.37x |
+| 27 | 74.017 | 334.987 | 4.53x |
+| 32 | 69.112 | 221.358 | 3.20x |
+| 37 | 61.474 | 152.397 | 2.48x |
+
+**Average Encoding Time Ratio: 4.14x**
+
+---
+
+## 🧪 Lab Discussion
+
+### 1. Bitrate Reduction Performance
+This experiment yielded a **BD-Rate of -43.36%** (using 'pchip' interpolation method). While VVC is often advertised as achieving a "50% bitrate reduction," this efficiency is highly dependent on the content resolution and the coding tools used. 
+
+**Resolution vs. CTU Size:**
+VVC utilizes larger **128x128 Coding Tree Units (CTUs)** compared to HEVC's 64x64. These massive CTUs are designed to exploit spatial redundancy in high-resolution content like **4K video**. When testing on lower resolution video (like our 720p source or WQVGA), the benefits of 128x128 CTUs are less pronounced because the image blocks are smaller and more detailed relative to the CTU size. This explains why we achieved ~43% rather than the theoretical 50% max seen in ultra-high-definition tests.
+
+### 2. Engineering Features Causing Complexity
+The **4.14x increase** in encoding time is driven by several intensive engineering features introduced in VVC to push the compression limits:
+-   **QTMT (Quad-Tree plus Multi-Type Tree)**: Unlike HEVC's rigid quad-tree, VVC allows **rectangular splits** (binary and ternary). This significantly increases the number of partitioning combinations that the encoder must test during Rate-Distortion Optimization (RDO).
+-   **Affine Motion Compensation**: VVC models complex motion (zooming, rotation) rather than just simple translation. The **Affine Motion Search** adds a significant computational burden to the motion estimation process.
+-   **67 Intra Prediction Modes**: VVC nearly doubles the number of intra modes from HEVC's 35, providing finer granularity but requiring more searches per block.
+
+### 3. Conclusion: Feasibility of Software Deployment
+The current software-based VVC reference encoder (VTM) is **not feasible** for live streaming applications on current general-purpose hardware. 
+-   **Performance Gap**: Even for a low-frame-count 720p encode, the process is several times slower than real-time. 
+-   **Deployment Reality**: For live streaming, the industry relies on hardware-based encoders (ASICs) or highly optimized software implementations (like `kvazaar` or `vvenc`) that use heuristic shortcuts to bypass the exhaustive RDO search used in the reference model. Without such optimizations, VVC remains primarily a standard for offline "high-quality" file compression rather than live broadcast on consumer-grade CPUs.
+    </script>
+
+    <!-- Experiment Guide -->
+    <script type="text/markdown" id="md-experiment">
+# HEVC vs VVC Experiment Guide
+
+This guide explains how to reproduce the **HEVC (HM) vs VVC (VTM) encoding experiment**. The instructions work on **Linux, macOS, and Windows using WSL**. The same steps were executed using **GitHub Codespaces**, which provides a ready-to-use Linux environment in the browser.
+
+---
+
+# 1. Install Prerequisites
+
+Open a terminal and install the required build tools.
+
+```bash
+sudo apt update
+sudo apt install -y build-essential cmake git python3 python3-pip
+```
+
+These tools are required for:
+
+| Tool | Purpose |
+|-----|--------|
+| gcc / g++ | C++ compilation |
+| cmake | Build configuration |
+| make | Build execution |
+| git | Cloning repositories |
+| python3 | Later analysis |
+
+---
+
+# 2. Download and Build the Reference Codecs
+
+The **Joint Video Experts Team (JVET)** provides reference implementations for academic evaluation.
+
+| Codec | Reference Encoder |
+|------|-------------------|
+| HEVC (H.265) | HM (HEVC Test Model) |
+| VVC (H.266) | VTM (VVC Test Model) |
+
+## 2.1 Build HM (HEVC)
+
+```bash
+git clone https://vcgit.hhi.fraunhofer.de/jvet/HM.git
+cd HM
+mkdir build
+cd build
+cmake .. -DCMAKE_BUILD_TYPE=Release
+make -j4
+cd ../..
+```
+
+Executable location:
+```
+HM/bin/TAppEncoderStatic
+```
+
+## 2.2 Build VTM (VVC)
+
+```bash
+git clone https://vcgit.hhi.fraunhofer.de/jvet/VVCSoftware_VTM.git
+cd VVCSoftware_VTM
+mkdir build
+cd build
+cmake .. -DCMAKE_BUILD_TYPE=Release
+make -j4
+cd ../..
+```
+
+Executable location:
+```
+VVCSoftware_VTM/bin/EncoderAppStatic
+```
+
+---
+
+# Using GitHub Codespaces (Optional)
+
+If running the experiment in **GitHub Codespaces**:
+
+1. Create a repository.
+2. Click **Code → Codespaces → Create Codespace**.
+3. A cloud Linux environment opens in VS Code.
+4. Run all commands inside the built-in terminal.
+
+Codespaces already includes most build tools, making compilation easier.
+
+---
+
+# 3. Download the Test Video
+
+Create a directory to store the raw video source.
+
+```bash
+mkdir source
+cd source
+```
+
+Download the YUV sequence from the Xiph video dataset:
+
+```bash
+wget https://media.xiph.org/video/derf/y4m/FourPeople_1280x720_60.y4m
+```
+
+---
+
+# 4. Create Output Directory
+
+Create a folder where all encoded files and logs will be stored.
+
+```bash
+mkdir encoded-output
+```
+
+---
+
+# 5. HEVC Encoding (HM)
+
+The HEVC encoder is executed four times using different **Quantization Parameter (QP)** values: `22, 27, 32, 37`.
+Only **10 frames** are encoded to reduce runtime.
+
+Example command for **QP = 22**:
+
+```bash
+./HM/bin/TAppEncoderStatic \
+-c HM/cfg/encoder_randomaccess_main.cfg \
+-i source/FourPeople_1280x720_60.y4m \
+-wdt 1280 -hgt 720 -fr 60 \
+-f 10 \
+-q 22 \
+-b encoded-output/out_hm_22.bin > encoded-output/log_hm_22.txt
+```
+
+Repeat the same command with `-q 27`, `-q 32`, and `-q 37`.
+
+---
+
+# 6. VVC Encoding (VTM)
+
+The VVC encoder is also executed four times using the same QP values.
+
+Example command for **QP = 22**:
+
+```bash
+./VVCSoftware_VTM/bin/EncoderAppStatic \
+-c VVCSoftware_VTM/cfg/encoder_randomaccess_vtm.cfg \
+-i source/FourPeople_1280x720_60.y4m \
+-wdt 1280 -hgt 720 -fr 60 \
+-f 10 \
+-q 22 \
+-b encoded-output/out_vtm_22.bin > encoded-output/log_vtm_22.txt
+```
+
+Repeat the command with `-q 27`, `-q 32`, `-q 37`.
+
+---
+
+# 7. Extracting Metrics From Log Files
+
+Each log file contains a **summary section** at the end of the encoding process.
+The extracted results were compiled into the following dataset for analysis:
+
+```csv
+Codec,QP,Bitrate_kbps,Y_PSNR_dB,Time_sec
+HM,22,6311.3760,43.2798,89.504
+HM,27,3410.2560,41.5033,74.017
+HM,32,2052.3360,39.1165,69.112
+HM,37,1222.8000,36.2630,61.474
+VTM,22,4727.0400,44.0691,570.181
+VTM,27,2568.0480,42.5558,334.987
+VTM,32,1578.9600,40.5555,221.358
+VTM,37,972.3840,38.0017,152.397
+```
+    </script>
+
+    <!-- Analysis Guide -->
+    <script type="text/markdown" id="md-analysis">
+# HEVC vs VVC Analysis Guide
+
+This guide explains how to analyze the encoding results after extracting the metrics into a CSV file. The analysis produces:
+
+- Rate–Distortion (R‑D) curve
+- BD‑Rate comparison
+- Encoding complexity comparison
+
+The analysis can be performed either in **Jupyter Notebook** or as a **standard Python script**.
+
+---
+
+# 1. Project Structure
+
+Create a directory named **analysis** and store the CSV file and analysis script there.
+
+```
+HM/
+VVCSoftware_VTM/
+source/
+encoded-output/
+analysis/
+    output_metrics.csv
+    analysis.py
+```
+
+---
+
+# 2. Install Python Dependencies
+
+Install the required Python libraries.
+
+```bash
+pip install pandas matplotlib numpy bjontegaard
+```
+
+These libraries are used for Data Processing (`pandas`), Plotting (`matplotlib`), Numerical operations (`numpy`), and BD-Rate Calculation (`bjontegaard`).
+
+---
+
+# 3. Create the Analysis Script
+
+Create `analysis/analysis.py` and insert the code below:
+
+```python
+import pandas as pd
+import matplotlib.pyplot as plt
+import numpy as np
+import bjontegaard as bd
+
+# Load the data
+df = pd.read_csv('output_metrics.csv')
+
+# Separate codec data
+hm_data = df[df['Codec'] == 'HM']
+vtm_data = df[df['Codec'] == 'VTM']
+
+# --- Rate Distortion Plot ---
+plt.figure(figsize=(8,6))
+plt.plot(hm_data['Bitrate_kbps'], hm_data['Y_PSNR_dB'], marker='o', label='HEVC (HM)')
+plt.plot(vtm_data['Bitrate_kbps'], vtm_data['Y_PSNR_dB'], marker='s', label='VVC (VTM)')
+
+plt.xlabel('Bitrate (kbps)')
+plt.ylabel('Y-PSNR (dB)')
+plt.title('Rate-Distortion Curve: HEVC vs VVC')
+plt.legend()
+plt.grid(True)
+plt.show()
+
+# --- BD Rate Calculation ---
+rate_hm = hm_data['Bitrate_kbps'].values
+psnr_hm = hm_data['Y_PSNR_dB'].values
+rate_vtm = vtm_data['Bitrate_kbps'].values
+psnr_vtm = vtm_data['Y_PSNR_dB'].values
+
+bd_rate_result = bd.bd_rate(rate_hm, psnr_hm, rate_vtm, psnr_vtm, method='pchip')
+
+print(f"BD-Rate (VVC vs HEVC): {bd_rate_result:.2f}%")
+
+# --- Complexity Analysis ---
+time_ratio = vtm_data['Time_sec'].values / hm_data['Time_sec'].values
+
+complexity_df = pd.DataFrame({
+    'QP':[22,27,32,37],
+    'HM Time (s)': hm_data['Time_sec'].values,
+    'VTM Time (s)': vtm_data['Time_sec'].values,
+    'Ratio': time_ratio
+})
+
+complexity_df['Ratio'] = complexity_df['Ratio'].apply(lambda x: f"{x:.2f}x")
+avg_ratio = time_ratio.mean()
+
+print("--- Encoding Time Complexity ---")
+print(complexity_df.to_string(index=False))
+print(f"\nAverage Encoding Time Ratio: {avg_ratio:.2f}x")
+```
+
+---
+
+# 4. Run the Analysis
+
+Navigate to the analysis directory and run the script:
+
+```bash
+cd analysis
+python analysis.py
+```
+
+The script will load the dataset, plot the **Rate‑Distortion curve**, compute the **BD‑Rate**, and calculate the **encoding time ratio**.
+
+---
+
+# 5. Expected Outputs
+
+Running the script produces:
+
+| Output | Description |
+|------|-------------|
+| RD Curve Plot | Visual comparison of compression efficiency |
+| BD‑Rate Value | Average bitrate difference between codecs |
+| Complexity Table | Encoding time comparison |
+
+### RD Curve Plot
+![Rate-Distortion Curve](../analysis/output.png)
+
+These results summarize the **compression efficiency improvement** and the **computational complexity increase** when moving from HEVC to VVC.
+    </script>
+
+    <!-- Custom Scripts -->
+    <script src="script.js"></script>
+</body>
+
+</html>
