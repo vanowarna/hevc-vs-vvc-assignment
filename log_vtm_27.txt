@@ -8,3 +8,23 @@ TOOL CFG: LFNST:1 MMVD:1 Affine:1 AffineType:1 AdaptBypassAffineMe:0 PROF:1 SbTM
 FAST TOOL CFG: LCTUFast:1 FastMrg:1 MaxMergeRdCandNumTotal:7 MergeRdCandQuotaRegular:4 MergeRdCandQuotaRegularSmallBlk:4 MergeRdCandQuotaSubBlk:2 MergeRdCandQuotaCiip:1 MergeRdCandQuotaGpm:8 PBIntraFast:1 IMV4PelFast:1 MTSMaxCand: 4(intra) 4(inter) ISPFast:0 FastLFNST:0 AMaxBT:1 E0023FastEnc:1 ContentBasedFastQtbt:0 UseNonLinearAlfLuma:1 UseNonLinearAlfChroma:1 MaxNumAlfAlternativesChroma:8 FastMIP:0 TTFastSkip:31 TTFastSkipThr:1.075 FastLocalDualTree:1 RPR:0 TemporalFilter:4/4 SEI CTI:0 BIM:0 SEI FGC:0 SEI processing Order:0 DPF:0 
 
 
+ started @ Thu Mar  5 00:56:54 2026
+POC    0 LId:  0 TId: 0 ( IDR_N_LP, I-SLICE, QP 24 )     388376 bits [Y 43.9079 dB    U 47.1692 dB    V 48.4409 dB] [ET   173 ] [L0] [L1]
+POC    8 LId:  0 TId: 2 ( STSA, B-SLICE, QP 29 )      24728 bits [Y 42.2034 dB    U 46.6687 dB    V 47.9483 dB] [ET    55 ] [L0 0] [L1 0c]
+POC    4 LId:  0 TId: 3 ( TRAIL, B-SLICE, QP 32 )       5864 bits [Y 42.3131 dB    U 46.7580 dB    V 48.0602 dB] [ET    30 ] [L0 0 8] [L1 8c 0]
+POC    2 LId:  0 TId: 4 ( TRAIL, B-SLICE, QP 34 )       2208 bits [Y 42.4711 dB    U 46.8358 dB    V 48.1960 dB] [ET    20 ] [L0 0 4 8] [L1 4c 8 0]
+POC    1 LId:  0 TId: 5 ( TRAIL, B-SLICE, QP 36 )        224 bits [Y 43.9010 dB    U 47.1728 dB    V 48.4462 dB] [ET     6 ] [L0 0] [L1 2c 4]
+POC    3 LId:  0 TId: 5 ( TRAIL, B-SLICE, QP 36 )        760 bits [Y 42.5844 dB    U 46.9939 dB    V 48.2588 dB] [ET     9 ] [L0 2c 0] [L1 4 8]
+POC    6 LId:  0 TId: 4 ( TRAIL, B-SLICE, QP 34 )       2360 bits [Y 42.1184 dB    U 46.6250 dB    V 47.9904 dB] [ET    21 ] [L0 4c 2 0] [L1 8 4 2]
+POC    5 LId:  0 TId: 5 ( TRAIL, B-SLICE, QP 36 )        680 bits [Y 42.2155 dB    U 46.7590 dB    V 48.0977 dB] [ET     9 ] [L0 4 0] [L1 6c 8]
+POC    7 LId:  0 TId: 5 ( TRAIL, B-SLICE, QP 36 )        696 bits [Y 42.0874 dB    U 46.7115 dB    V 47.9961 dB] [ET     9 ] [L0 6c 4] [L1 8 6]
+POC    9 LId:  0 TId: 5 ( TRAIL, B-SLICE, QP 36 )       2112 bits [Y 41.7553 dB    U 46.5466 dB    V 47.8729 dB] [ET    12 ] [L0 8 4] [L1 8c 4]
+
+Memory Usage: VmPeak= 606032 KB ( 0.6 GiB ),  VmHWM= 453560 KB ( 0.4 GiB )
+
+LayerId  0
+	Total Frames |  Bitrate      Y-PSNR   U-PSNR   V-PSNR   YUV-PSNR 
+	10           a  2568.0480    42.5558  46.8240  48.1308  43.6145  
+
+ finished @ Thu Mar  5 01:02:41 2026
+ Total Time:      334.987 sec. [user]      347.081 sec. [elapsed]
